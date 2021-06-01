@@ -1,57 +1,64 @@
 import './sass/main.scss';
-
-import { error } from '@pnotify/core/dist/PNotify.js';
-import '@pnotify/core/dist/BrightTheme.css';
-import '@pnotify/core/dist/PNotify.css';
-
-import debounce from 'lodash.debounce';
-
-import fetchCountries from './js/fetchImg';
-import countriesListMarkup from './templates/countriesList.hbs';
-import countriesCardMarkup from './templates/countriesCard.hbs';
+import galleryTemplate from './templates/gallery-templates.hbs';
+import NewsApiService from './js/apiService';
+import LoadeMoreBtn from './js/load-more-btn';
 
 const refs = {
-  input: document.querySelector('.input_country'),
-  countryCard: document.querySelector('.block_card'),
+  searchForm: document.querySelector('#search-form'),
+  galleryContainer: document.querySelector('.js-gallery'),
+  loadMoreBtn: document.querySelector('[data-action="load-more"]'),
 };
 
-refs.input.addEventListener('input', debounce(onInputSearch, 500));
+const loadMoreBtn = new LoadeMoreBtn({
+  selector: '[data-action="load-more"]',
+  hidden: true,
+});
 
-let inputValue = '';
+const newsApiService = new NewsApiService();
 
-function onInputSearch(evt) {
-  inputValue = evt.target.value.trim();
-  refs.countryCard.innerHTML = '';
+refs.searchForm.addEventListener('submit', onSearch);
+loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 
-  if (!inputValue) {
-    return;
+function onSearch(evt) {
+  evt.preventDefault();
+
+  newsApiService.query = evt.currentTarget.elements.query.value.trim();
+
+  if (!newsApiService.query) {
+    loadMoreBtn.hide();
+    clearGalleryContainer();
   } else {
-    fetchCountries(inputValue)
-      .then(updateNameNotification)
-      .catch(error => console.log(error));
+    loadMoreBtn.show();
+    newsApiService.resetPage();
+    clearGalleryContainer();
+    fetchArticles();
   }
 }
 
-function addCountriesList(countries) {
-  const markup = countriesListMarkup(countries);
-  refs.countryCard.insertAdjacentHTML('beforeend', markup);
+function scrollToButton() {
+  refs.loadMoreBtn.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+  });
 }
 
-function addCountriesCard(countries) {
-  const markup = countriesCardMarkup(countries[0]);
-  refs.countryCard.insertAdjacentHTML('beforeend', markup);
-}
-
-function updateNameNotification(name) {
-  if (name.length > 10) {
-    error({
-      text: 'Too many matches found. Please enter a more specific query!',
+async function fetchArticles() {
+  loadMoreBtn.disable();
+  try {
+    await newsApiService.fetchArticles().then(hits => {
+      galleryMarkup(hits);
+      loadMoreBtn.enable();
+      scrollToButton();
     });
-    return;
+  } catch (error) {
+    console.log('Ошибка', error);
   }
-  if (name.length >= 2 && name.length <= 10) {
-    addCountriesList(name);
-    return;
-  }
-  addCountriesCard(name);
+}
+
+function galleryMarkup(hits) {
+  refs.galleryContainer.insertAdjacentHTML('beforeend', galleryTemplate(hits));
+}
+
+function clearGalleryContainer() {
+  refs.galleryContainer.innerHTML = '';
 }

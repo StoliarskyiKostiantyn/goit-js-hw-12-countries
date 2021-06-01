@@ -1,4 +1,3 @@
- 
 *,
 *::before,
 *::after {
@@ -6,45 +5,120 @@
 }
 
 body {
-  color: #2a2a2a;
   font-family: 'Newsreader', 'Roboto', sans-serif;
-  background-color: rgb(228, 211, 188);
-  padding-top: 50px;
+  line-height: 1.5;
+  color: #181717;
+  background-color: #f0dfb3;
 }
 
-input {
-  width: 500px;
-  height: 50px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  border-radius: 5px;
+.search-form {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.btn {
+  width: 150px;
+  background-color: #a6e7a8;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  border-color: #f1e4dd;
+}
+
+.button {
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-h1 {
-  font-weight: 900;
-  letter-spacing: 0.03em;
-  color: rgb(156, 19, 19);
+.button.is-hidden {
+  display: none;
 }
 
-h2 {
-  letter-spacing: 0.05em;
+.button > .spinner.is-hidden {
+  display: none;
 }
 
-.block_card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 25px;
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
-li {
+input {
+  font: 'Newsreader', inherit;
+  margin-right: 20px;
+  width: 400px;
+  font-size: 20px;
   font-weight: 300;
-  font-family: 'Newsreader', 'Roboto', sans-serif;
-  font-size: 30px;
-  letter-spacing: 0.03em;
+  align-items: center;
+
+  border-radius: 8px;
+  border-color: #a6e7a8;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stats-item {
+  display: flex;
+  justify-content: space-around;
+  background-color: #e78982;
+  border-radius: 6px;
+  padding: 1px;
+}
+
+.material-icons {
+  color: #f1e4dd;
+  margin-right: 5px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-width: calc(100vw - 80px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.gallery a {
+  text-decoration: none;
+  color: #2a2a2a;
+}
+
+.articles li {
+  height: 450px;
+  overflow: hidden;
+}
+
+.articles img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.articles a {
+  text-decoration: none;
+  color: #2a2a2a;
 }
