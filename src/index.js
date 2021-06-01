@@ -6,7 +6,7 @@ import '@pnotify/core/dist/PNotify.css';
 
 import debounce from 'lodash.debounce';
 
-import fetchCountries from './js/fetchCountries';
+import fetchCountries from './js/fetchImg';
 import countriesListMarkup from './templates/countriesList.hbs';
 import countriesCardMarkup from './templates/countriesCard.hbs';
 
