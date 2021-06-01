@@ -1,7 +1,50 @@
-/*
- * Главный файл стилей.
- * Все паршалы подключаются сюда.
- */
+ 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-// Стили для файла с примером HTML-фрагмента
-@import './example';
+body {
+  color: #2a2a2a;
+  font-family: 'Newsreader', 'Roboto', sans-serif;
+  background-color: rgb(228, 211, 188);
+  padding-top: 50px;
+}
+
+input {
+  width: 500px;
+  height: 50px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  color: rgb(156, 19, 19);
+}
+
+h2 {
+  letter-spacing: 0.05em;
+}
+
+.block_card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 25px;
+}
+
+li {
+  font-weight: 300;
+  font-family: 'Newsreader', 'Roboto', sans-serif;
+  font-size: 30px;
+  letter-spacing: 0.03em;
+}
